@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import API_URL from "./config";
+import { Link, useParams } from "react-router-dom";
+import API_URL from "../config";
 
 const Post = () => {
     const { postId } = useParams();
@@ -9,7 +9,7 @@ const Post = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${API_URL}/${postId}?_embed`);
+                const response = await fetch(`${API_URL}/posts/${postId}?_embed`);
                 const data = await response.json();
                 setPost(data);
             } catch (error) {
@@ -29,6 +29,7 @@ const Post = () => {
 
     return (
         <>
+        <Link to="/">Home</Link>
             <h1>{post.title.rendered}</h1>
             <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
         </>

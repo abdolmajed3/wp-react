@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import API_URL from './config'
+import API_URL from '../config'
 
 const Home = () => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        fetch(`${API_URL}?_embed`)
+        fetch(`${API_URL}/posts?_embed`)
             .then((response) => {
                 return response.json()
             })
@@ -28,17 +28,16 @@ const Home = () => {
             <p>
                 this web application is created to show you how you can get posts from wordpress and show it into your reactJs application
             </p>
-            <ul>
+            <main>
                 {posts.map((post) => {
                     return (
-                        <li key={post.id} style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', padding: '20px', margin: '0' }}>
-                            {getImageUrl(post) && <img style={{ width: '500px' }} src={getImageUrl(post)} alt={post.title.rendered} />}
-                            {/* <a href={post.link}>{post.title.rendered}</a> */}
-                            <Link to={`${post.id}`} state={post.id}>{post.title.rendered}</Link>
-                        </li>
+                        <article key={post.id} className='homearticle'>
+                            {getImageUrl(post) ? <img style={{ width: '500px', display: 'block', padding: '10px' }} src={getImageUrl(post)} alt={post.title.rendered} /> : <img src="https://picsum.photos/500/300" alt='no image' />}
+                            <Link style={{ display: 'block', padding: '10px' }} to={`${post.id}`} state={post.id}>{post.title.rendered}</Link>
+                        </article>
                     )
                 })}
-            </ul>
+            </main>
             <p> visit my linkedin : <a href='https://www.linkedin.com/in/abdolmajed-shahbakhsh/'>abdolmajed shahbakhsh</a></p>
         </>
     )
