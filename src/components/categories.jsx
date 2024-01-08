@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
 import API_URL from "../config";
 
+/**
+ * Function to fetch and display categories.
+ * @returns JSX.Element The component for displaying categories.
+ */
 const Categories = () => {
     const [categories, setCategories] = useState([]);
 
+    /**
+     * Fetch categories from the API when the component mounts.
+     */
     useEffect(() => {
         fetch(`${API_URL}/categories`)
             .then(res => res.json())
